@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -19,22 +19,27 @@ public class PaymentScheduleModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant date;
     private Double payment;
     private Integer paymentStatus;
-    @ManyToOne
+
+    private Long userId;
+    /*@ManyToOne
     @JoinColumn(name = "user_id")
-    private UserModel userModel;
+    private UserModel userModel;*/
 
-    public PaymentScheduleModel() {}
+    public PaymentScheduleModel() {
+        setPaymentStatus(PaymentStatus.PENDING);
+    }
 
-    public PaymentScheduleModel(Long id, LocalDate date, Double payment, UserModel userModel) {
+    public PaymentScheduleModel(Long id, Instant date, Double payment, Long userId) {
         this.id = id;
         this.date = date;
         this.payment = payment;
         setPaymentStatus(PaymentStatus.PENDING);
-        this.userModel = userModel;
+        this.userId = userId;
+        //this.userModel = userModel;
     }
 
     public PaymentStatus getPaymentStatus() {
@@ -45,15 +50,4 @@ public class PaymentScheduleModel implements Serializable {
         this.paymentStatus = paymentStatus.getCode();
     }
 
-    LocalDate date1 = LocalDate.parse("2022-07-30");
-    LocalDate date2 = LocalDate.parse("2022-07-30");
-
-    public boolean compare(LocalDate d1, LocalDate d2) {
-        if (d1.equals(d2) || d1.isAfter(d2)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 }
