@@ -3,8 +3,7 @@ package com.flexpag.paymentscheduler.models.enums;
 public enum PaymentStatus {
 
     PENDING(1),
-    PAID(2),
-    CANCELED(3);
+    PAID(2);
 
     private int code;
 

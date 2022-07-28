@@ -44,4 +44,16 @@ public class PaymentScheduleModel implements Serializable {
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus.getCode();
     }
+
+    LocalDate date1 = LocalDate.parse("2022-07-30");
+    LocalDate date2 = LocalDate.parse("2022-07-30");
+
+    public boolean compare(LocalDate d1, LocalDate d2) {
+        if (d1.equals(d2) || d1.isAfter(d2)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
