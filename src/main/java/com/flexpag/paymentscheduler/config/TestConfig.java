@@ -18,9 +18,9 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        PaymentScheduleModel p1 = new PaymentScheduleModel(null, Instant.parse("2022-07-30T11:00:00Z"), 500.0, 1L);
-        PaymentScheduleModel p2 = new PaymentScheduleModel(null, Instant.parse("2022-08-30T11:00:00Z"), 700.0, 2L);
-        PaymentScheduleModel p3 = new PaymentScheduleModel(null, Instant.parse("2022-05-30T11:00:00Z"), 1100.0, 1L);
+        PaymentScheduleModel p1 = new PaymentScheduleModel(Instant.parse("2022-07-30T11:00:00Z"), 500.0);
+        PaymentScheduleModel p2 = new PaymentScheduleModel(Instant.parse("2022-08-30T11:00:00Z"), 700.0);
+        PaymentScheduleModel p3 = new PaymentScheduleModel(Instant.parse("2022-05-30T11:00:00Z"), 1100.0);
 
         paymentScheduleRepository.saveAll(Arrays.asList(p1, p2, p3));
 

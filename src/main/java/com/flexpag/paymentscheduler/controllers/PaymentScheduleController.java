@@ -26,6 +26,7 @@ public class PaymentScheduleController {
         for (PaymentScheduleModel p : list) {
             if (p.getDate().equals(Instant.now()) || p.getDate().isBefore(Instant.now())) {
                 p.setPaymentStatus(PaymentStatus.PAID);
+                paymentScheduleService.save(p);
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(paymentScheduleService.findAll());
@@ -42,6 +43,7 @@ public class PaymentScheduleController {
         else if (paymentScheduleModelOptional.get().getDate().equals(Instant.now()) ||
                 paymentScheduleModelOptional.get().getDate().isBefore(Instant.now())) {
             paymentScheduleModelOptional.get().setPaymentStatus(PaymentStatus.PAID);
+            paymentScheduleService.save(paymentScheduleModelOptional.get());
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(paymentScheduleModelOptional.get());
@@ -52,6 +54,7 @@ public class PaymentScheduleController {
         if (paymentScheduleModel.getDate().equals(Instant.now()) || paymentScheduleModel.getDate().isBefore(Instant.now())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Horário do agendamento precisa ser uma data posterior à atual.");
         }
+        paymentScheduleModel.setPaymentStatus(PaymentStatus.PENDING);
         return ResponseEntity.status(HttpStatus.CREATED).body(paymentScheduleService.save(paymentScheduleModel));
     }
 

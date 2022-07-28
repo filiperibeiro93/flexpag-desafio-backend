@@ -26,7 +26,6 @@ public class PaymentScheduleService {
 
     @Transactional
     public PaymentScheduleModel save(PaymentScheduleModel paymentScheduleModel) {
-        paymentScheduleModel.setPaymentStatus(PaymentStatus.PENDING);
         return paymentScheduleRepository.save(paymentScheduleModel);
     }
 

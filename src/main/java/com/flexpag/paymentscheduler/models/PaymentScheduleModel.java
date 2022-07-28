@@ -24,22 +24,14 @@ public class PaymentScheduleModel implements Serializable {
     private Double payment;
     private Integer paymentStatus;
 
-    private Long userId;
-    /*@ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserModel userModel;*/
-
     public PaymentScheduleModel() {
         setPaymentStatus(PaymentStatus.PENDING);
     }
 
-    public PaymentScheduleModel(Long id, Instant date, Double payment, Long userId) {
-        this.id = id;
+    public PaymentScheduleModel(Instant date, Double payment) {
         this.date = date;
         this.payment = payment;
         setPaymentStatus(PaymentStatus.PENDING);
-        this.userId = userId;
-        //this.userModel = userModel;
     }
 
     public PaymentStatus getPaymentStatus() {
