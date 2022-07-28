@@ -1,15 +1,16 @@
 package com.flexpag.paymentscheduler.models;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "tb_user")
 public class UserModel implements Serializable {
@@ -18,13 +19,22 @@ public class UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String name;
-    @Column(nullable = false, length = 14)
     private String cpf;
-    @Column(nullable = false)
     private String email;
+    private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userModel")
+    private List<PaymentScheduleModel> paymentSchedules = new ArrayList<>();
 
     public UserModel() {}
 
+    public UserModel(Long id, String name, String cpf, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+    }
 }
